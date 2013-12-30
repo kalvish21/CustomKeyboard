@@ -1,28 +1,32 @@
 //
-//  CustomKeyboard.h
+//  MounzaCustomKeyboard.h
+//  Mounza
 //
 //  Created by Kalyan Vishnubhatla on 10/9/12.
 //
 //
 
 #import <Foundation/Foundation.h>
+#import "CommonUtil.h"
 
 // Protocol for classes using this
 @protocol CustomKeyboardDelegate
-- (void)nextClicked:(NSUInteger)selectedId;
-- (void)previousClicked:(NSUInteger)selectedId;
-- (void)doneClicked:(NSUInteger)selectedId;
+- (void)nextClicked:(NSUInteger)sender;
+- (void)previousClicked:(NSUInteger)sender;
+- (void)resignResponder:(NSUInteger)sender;
 @end
 
 @interface CustomKeyboard : NSObject {
-    id<CustomKeyboardDelegate> delegate;
+    UIViewController<CustomKeyboardDelegate>* delegate;
     NSUInteger currentSelectedTextboxIndex;
+    CommonUtil *util;
 }
 
-@property (nonatomic, strong) id<CustomKeyboardDelegate> delegate;
+@property (nonatomic, strong) UIViewController<CustomKeyboardDelegate>* delegate;
 @property (nonatomic) NSUInteger currentSelectedTextboxIndex;
 
 - (UIToolbar *)getToolbarWithPrevNextDone:(BOOL)prevEnabled :(BOOL)nextEnabled;
+- (UIToolbar *)getToolbarWithPrevNext:(BOOL)prevEnabled :(BOOL)nextEnabled;
 - (UIToolbar *)getToolbarWithDone;
 
 @end

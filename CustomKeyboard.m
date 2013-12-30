@@ -1,5 +1,6 @@
 //
-//  CustomKeyboard.m
+//  MounzaCustomKeyboard.m
+//  Mounza
 //
 //  Created by Kalyan Vishnubhatla on 10/9/12.
 //
@@ -13,7 +14,7 @@
 - (id)init {
     self = [super init];
     if (self){
-        
+        util = [[CommonUtil alloc] init];
     }
     return self;
 }
@@ -26,14 +27,7 @@
     
     NSMutableArray *itemsArray = [[NSMutableArray alloc] init];
     
-    UISegmentedControl *tabNavigation = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Previous", @"Next", nil]];
-    tabNavigation.segmentedControlStyle = UISegmentedControlStyleBar;
-    [tabNavigation setEnabled:prevEnabled forSegmentAtIndex:0];
-    [tabNavigation setEnabled:nextEnabled forSegmentAtIndex:1];
-    tabNavigation.momentary = YES;
-    [tabNavigation addTarget:self action:@selector(segmentedControlHandler:) forControlEvents:UIControlEventValueChanged];
-    UIBarButtonItem *barSegment = [[UIBarButtonItem alloc] initWithCustomView:tabNavigation];
-    
+    UIBarButtonItem *barSegment = [self getNextPrevButtons:prevEnabled :nextEnabled];
     [itemsArray addObject:barSegment];
 
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
@@ -43,7 +37,35 @@
     [itemsArray addObject:doneButton];
 
     toolbar.items = itemsArray;
-        
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [toolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
+        [toolbar setTintColor:[UIColor blackColor]];
+    }
+    
+    return toolbar;
+}
+
+- (UIToolbar *)getToolbarWithPrevNext:(BOOL)prevEnabled :(BOOL)nextEnabled {
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+    [toolbar sizeToFit];
+    
+    NSMutableArray *itemsArray = [[NSMutableArray alloc] init];
+    
+    UIBarButtonItem *barSegment = [self getNextPrevButtons:prevEnabled :nextEnabled];
+    [itemsArray addObject:barSegment];
+    
+    UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    [itemsArray addObject:flexButton];
+    
+    toolbar.items = itemsArray;
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [toolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
+        [toolbar setTintColor:[UIColor blackColor]];
+    }
+    
     return toolbar;
 }
 
@@ -58,12 +80,32 @@
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     [itemsArray addObject:flexButton];
     
-    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(userClickedDone:)];
+    UIBarButtonItem *doneButton = [self getDoneButton];
     [itemsArray addObject:doneButton];
     
     toolbar.items = itemsArray;
     
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [toolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
+        [toolbar setTintColor:[UIColor blackColor]];
+    }
+    
     return toolbar;
+}
+
+- (UIBarButtonItem *)getNextPrevButtons:(BOOL)prevEnabled :(BOOL)nextEnabled {
+    UISegmentedControl *tabNavigation = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Previous", @"Next", nil]];
+    tabNavigation.segmentedControlStyle = UISegmentedControlStyleBar;
+    [tabNavigation setEnabled:prevEnabled forSegmentAtIndex:0];
+    [tabNavigation setEnabled:nextEnabled forSegmentAtIndex:1];
+    tabNavigation.momentary = YES;
+    [tabNavigation addTarget:self action:@selector(segmentedControlHandler:) forControlEvents:UIControlEventValueChanged];
+    
+    return [[UIBarButtonItem alloc] initWithCustomView:tabNavigation];
+}
+
+- (UIBarButtonItem *)getDoneButton {
+    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(userClickedDone:)];
 }
 
 /* Previous / Next segmented control changed value */
@@ -72,10 +114,14 @@
     if (delegate){
         switch ([(UISegmentedControl *)sender selectedSegmentIndex]) {
             case 0:
-                [delegate previousClicked:currentSelectedTextboxIndex];
+                if ([delegate respondsToSelector:@selector(previousClicked:)]) {
+                    [delegate previousClicked:currentSelectedTextboxIndex];
+                }
                 break;
             case 1:
-                [delegate nextClicked:currentSelectedTextboxIndex];
+                if ([delegate respondsToSelector:@selector(nextClicked:)]) {
+                    [delegate nextClicked:currentSelectedTextboxIndex];
+                }
                 break;
             default:
                 break;
@@ -84,8 +130,8 @@
 }
 
 - (void)userClickedDone:(id)sender {
-    if (delegate){
-        [delegate doneClicked:currentSelectedTextboxIndex];
+    if (delegate && [delegate respondsToSelector:@selector(resignResponder:)]){
+        [delegate resignResponder:currentSelectedTextboxIndex];
     }
 }
 
