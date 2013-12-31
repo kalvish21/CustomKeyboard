@@ -2,6 +2,8 @@
 
 Provide Previous, Next, Done buttons for iOS keyboard
 
+![](https://github.com/kalvish21/CustomKeyboard/blob/master/images/upload.png)
+
 ## Usage
 
 The CustomKeyboard class has a delegate class CustomKeyboardDelegate. Any class requiring the CustomKeyboard implementation will need to implement the delegate functions. These functions are:
