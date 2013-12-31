@@ -128,6 +128,7 @@
 				30A4319C1872143700E50745 /* Library */,
 				30A4317C1872142600E50745 /* CustomKeyboardAppDelegate.h */,
 				30A4317D1872142600E50745 /* CustomKeyboardAppDelegate.m */,
+				3086B20F18721502005CC41E /* StoryBoard.storyboard */,
 				30A4317F1872142600E50745 /* Images.xcassets */,
 				30A431741872142500E50745 /* Supporting Files */,
 			);
@@ -137,7 +138,6 @@
 		30A431741872142500E50745 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3086B20F18721502005CC41E /* StoryBoard.storyboard */,
 				30A431751872142500E50745 /* CustomKeyboard-Info.plist */,
 				30A431761872142500E50745 /* InfoPlist.strings */,
 				30A431791872142600E50745 /* main.m */,
