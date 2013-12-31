@@ -28,7 +28,7 @@
 
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
-    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(userClickedDone:)];
+    UIBarButtonItem *doneButton = [self getDoneButton];
 
     toolbar.items = [NSArray arrayWithObjects:barSegment, flexButton, doneButton, nil];
     
