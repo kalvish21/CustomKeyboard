@@ -29,13 +29,13 @@ After implementing the three delegate functions, create an instance of the Custo
 
 When showing a keyboard for a particular box, inside the textFieldDidBeginEditing function, the following functions are available to create the toolbar above the keyboard:
 
-1. Generate a UIToolbar with Previous, Next, and Done. The variables prevEnabled and nextEnabled define if the buttons should be enabled or not (i.e. first box won't have previous enabled).
+1.) Generate a UIToolbar with Previous, Next, and Done. The variables prevEnabled and nextEnabled define if the buttons should be enabled or not (i.e. first box won't have previous enabled).
 
 ```
 (UIToolbar *)getToolbarWithPrevNextDone:(BOOL)prevEnabled :(BOOL)nextEnabled;
 ```
 
-2. Generate a UIToolbar with only the Done button.
+2.) Generate a UIToolbar with only the Done button.
 
 ```
 (UIToolbar *)getToolbarWithDone;
