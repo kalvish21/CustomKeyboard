@@ -6,19 +6,19 @@ Provide Previous, Next, Done buttons for iOS keyboard
 
 The CustomKeyboard class has a delegate class CustomKeyboardDelegate. Any class requiring the CustomKeyboard implementation will need to implement the delegate functions. These functions are:
 
-1. This function will receive a call when the user clicks on the next button. The selectedId is the integer value of which textbox the user was in BEFORE clicking next.
+1.) This function will receive a call when the user clicks on the next button. The selectedId is the integer value of which textbox the user was in BEFORE clicking next.
 
 ```
 (void)nextClicked:(NSUInteger)selectedId;
 ```
 
-2. This function will be called when the user clicks on previous. The variable selectedId will have the id of the box that the user was on before clicking previous.
+2.) This function will be called when the user clicks on previous. The variable selectedId will have the id of the box that the user was on before clicking previous.
 
 ```
 (void)previousClicked:(NSUInteger)selectedId;
 ```
 
-3. This function will be called when the user clicks on done.
+3.) This function will be called when the user clicks on done.
 
 ```
 (void)doneClicked:(NSUInteger)selectedId;
