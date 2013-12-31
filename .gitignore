@@ -1,0 +1,15 @@
+*.DS_Store
+*.bbprojectd
+*.pyc
+*.pyo
+assets
+mounza.bbprojectd
+celerybeat-schedule.db
+*.log
+logs/
+mounza/.idea
+.idea/
+workspace.xml
+migrations/
+/.idea
+manage.py
