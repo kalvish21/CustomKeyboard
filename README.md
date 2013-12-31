@@ -51,7 +51,7 @@ The functions above can be used in the following way:
 This would show Previous, Next, and Done. Previous button would be disabled.
 
 
-## Licence
+## License
 
 This project is released under the MIT License:
 
