@@ -14,7 +14,6 @@
 - (id)init {
     self = [super init];
     if (self){
-        util = [[CommonUtil alloc] init];
     }
     return self;
 }
@@ -25,23 +24,13 @@
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
     [toolbar sizeToFit];
     
-    NSMutableArray *itemsArray = [[NSMutableArray alloc] init];
-    
     UIBarButtonItem *barSegment = [self getNextPrevButtons:prevEnabled :nextEnabled];
-    [itemsArray addObject:barSegment];
 
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    [itemsArray addObject:flexButton];
     
     UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(userClickedDone:)];
-    [itemsArray addObject:doneButton];
 
-    toolbar.items = itemsArray;
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        [toolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
-        [toolbar setTintColor:[UIColor blackColor]];
-    }
+    toolbar.items = [NSArray arrayWithObjects:barSegment, flexButton, doneButton, nil];
     
     return toolbar;
 }
@@ -51,20 +40,12 @@
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
     [toolbar sizeToFit];
     
-    NSMutableArray *itemsArray = [[NSMutableArray alloc] init];
-    
+    // Segmented control with next and prev buttons
     UIBarButtonItem *barSegment = [self getNextPrevButtons:prevEnabled :nextEnabled];
-    [itemsArray addObject:barSegment];
     
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    [itemsArray addObject:flexButton];
     
-    toolbar.items = itemsArray;
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        [toolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
-        [toolbar setTintColor:[UIColor blackColor]];
-    }
+    toolbar.items = [NSArray arrayWithObjects:barSegment, flexButton, nil];
     
     return toolbar;
 }
@@ -75,20 +56,11 @@
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
     [toolbar sizeToFit];
     
-    NSMutableArray *itemsArray = [[NSMutableArray alloc] init];
-    
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    [itemsArray addObject:flexButton];
     
     UIBarButtonItem *doneButton = [self getDoneButton];
-    [itemsArray addObject:doneButton];
     
-    toolbar.items = itemsArray;
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        [toolbar setBarTintColor:[UIColor groupTableViewBackgroundColor]];
-        [toolbar setTintColor:[UIColor blackColor]];
-    }
+    toolbar.items = [NSArray arrayWithObjects:flexButton, doneButton, nil];
     
     return toolbar;
 }
@@ -111,21 +83,19 @@
 /* Previous / Next segmented control changed value */
 - (void)segmentedControlHandler:(id)sender
 {
-    if (delegate){
-        switch ([(UISegmentedControl *)sender selectedSegmentIndex]) {
-            case 0:
-                if ([delegate respondsToSelector:@selector(previousClicked:)]) {
-                    [delegate previousClicked:currentSelectedTextboxIndex];
-                }
-                break;
-            case 1:
-                if ([delegate respondsToSelector:@selector(nextClicked:)]) {
-                    [delegate nextClicked:currentSelectedTextboxIndex];
-                }
-                break;
-            default:
-                break;
-        }
+    switch ([(UISegmentedControl *)sender selectedSegmentIndex]) {
+        case 0:
+            if (delegate && [delegate respondsToSelector:@selector(previousClicked:)]) {
+                [delegate previousClicked:currentSelectedTextboxIndex];
+            }
+            break;
+        case 1:
+            if (delegate && [delegate respondsToSelector:@selector(nextClicked:)]) {
+                [delegate nextClicked:currentSelectedTextboxIndex];
+            }
+            break;
+        default:
+            break;
     }
 }
 

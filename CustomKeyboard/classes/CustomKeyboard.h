@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CommonUtil.h"
 
 // Protocol for classes using this
 @protocol CustomKeyboardDelegate
@@ -19,7 +18,6 @@
 @interface CustomKeyboard : NSObject {
     UIViewController<CustomKeyboardDelegate>* delegate;
     NSUInteger currentSelectedTextboxIndex;
-    CommonUtil *util;
 }
 
 @property (nonatomic, strong) UIViewController<CustomKeyboardDelegate>* delegate;
