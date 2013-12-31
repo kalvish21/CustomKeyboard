@@ -2,7 +2,7 @@
 
 Provide Previous, Next, Done buttons for iOS keyboard
 
-![](https://github.com/kalvish21/CustomKeyboard/blob/master/images/upload.png)
+![alt text](https://github.com/kalvish21/CustomKeyboard/blob/master/images/upload.png "")
 
 ## Usage
 
