@@ -1,6 +1,6 @@
 //
-//  MounzaCustomKeyboard.h
-//  Mounza
+//  CustomKeyboard.h
+//  CustomKeyboard
 //
 //  Created by Kalyan Vishnubhatla on 10/9/12.
 //
