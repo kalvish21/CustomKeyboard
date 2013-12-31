@@ -49,3 +49,10 @@ The functions above can be used in the following way:
 ```
 
 This would show Previous, Next, and Done. Previous button would be disabled.
+
+
+## Licence
+
+This project is released under the MIT License:
+
+http://opensource.org/licenses/MIT
