@@ -20,6 +20,9 @@
     NSUInteger currentSelectedTextboxIndex;
 }
 
+@property (nonatomic, strong) UIColor *navBarColor;
+@property (nonatomic, strong) UIColor *fontColor;
+
 @property (nonatomic, strong) UIViewController<CustomKeyboardDelegate>* delegate;
 @property (nonatomic) NSUInteger currentSelectedTextboxIndex;
 

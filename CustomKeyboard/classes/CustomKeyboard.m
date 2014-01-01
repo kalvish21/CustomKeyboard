@@ -9,28 +9,40 @@
 #import "CustomKeyboard.h"
 
 @implementation CustomKeyboard
+
+#define IOS_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 @synthesize delegate, currentSelectedTextboxIndex;
 
 - (id)init {
     self = [super init];
     if (self){
+        self.navBarColor = [UIColor groupTableViewBackgroundColor];
+        self.fontColor = [UIColor blackColor];
     }
     return self;
 }
 
 - (UIToolbar *)getToolbarWithPrevNextDone:(BOOL)prevEnabled :(BOOL)nextEnabled
-{    
+{
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
     [toolbar sizeToFit];
     
     UIBarButtonItem *barSegment = [self getNextPrevButtons:prevEnabled :nextEnabled];
-
+    
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
     UIBarButtonItem *doneButton = [self getDoneButton];
-
+    
     toolbar.items = [NSArray arrayWithObjects:barSegment, flexButton, doneButton, nil];
+    
+    if (IOS_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [toolbar setBarTintColor:self.navBarColor];
+        [toolbar setTintColor:self.fontColor];
+    } else {
+        [toolbar setTintColor:self.navBarColor];
+    }
     
     return toolbar;
 }
@@ -47,6 +59,13 @@
     
     toolbar.items = [NSArray arrayWithObjects:barSegment, flexButton, nil];
     
+    if (IOS_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [toolbar setBarTintColor:self.navBarColor];
+        [toolbar setTintColor:self.fontColor];
+    } else {
+        [toolbar setTintColor:self.navBarColor];
+    }
+    
     return toolbar;
 }
 
@@ -61,6 +80,13 @@
     UIBarButtonItem *doneButton = [self getDoneButton];
     
     toolbar.items = [NSArray arrayWithObjects:flexButton, doneButton, nil];
+    
+    if (IOS_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        [toolbar setBarTintColor:self.navBarColor];
+        [toolbar setTintColor:self.fontColor];
+    } else {
+        [toolbar setTintColor:self.navBarColor];
+    }
     
     return toolbar;
 }
@@ -104,5 +130,6 @@
         [delegate resignResponder:currentSelectedTextboxIndex];
     }
 }
+
 
 @end
