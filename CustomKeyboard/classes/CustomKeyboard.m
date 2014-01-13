@@ -12,7 +12,7 @@
 
 #define IOS_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-@synthesize delegate, currentSelectedTextboxIndex;
+@synthesize delegate = _delegate, currentSelectedTextboxIndex = _currentSelectedTextboxIndex;
 
 - (id)init {
     self = [super init];
@@ -111,13 +111,13 @@
 {
     switch ([(UISegmentedControl *)sender selectedSegmentIndex]) {
         case 0:
-            if (delegate && [delegate respondsToSelector:@selector(previousClicked:)]) {
-                [delegate previousClicked:currentSelectedTextboxIndex];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(previousClicked:)]) {
+                [self.delegate previousClicked:self.currentSelectedTextboxIndex];
             }
             break;
         case 1:
-            if (delegate && [delegate respondsToSelector:@selector(nextClicked:)]) {
-                [delegate nextClicked:currentSelectedTextboxIndex];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(nextClicked:)]) {
+                [self.delegate nextClicked:self.currentSelectedTextboxIndex];
             }
             break;
         default:
@@ -126,8 +126,8 @@
 }
 
 - (void)userClickedDone:(id)sender {
-    if (delegate && [delegate respondsToSelector:@selector(resignResponder:)]){
-        [delegate resignResponder:currentSelectedTextboxIndex];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(resignResponder:)]){
+        [self.delegate resignResponder:self.currentSelectedTextboxIndex];
     }
 }
 
