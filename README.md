@@ -10,19 +10,19 @@ The CustomKeyboard class has a delegate class CustomKeyboardDelegate. Any class 
 
 1.) This function will receive a call when the user clicks on the next button. The selectedId is the integer value of which textbox the user was in BEFORE clicking next.
 
-```
+```objective-c
 (void)nextClicked:(NSUInteger)selectedId;
 ```
 
 2.) This function will be called when the user clicks on previous. The variable selectedId will have the id of the box that the user was on before clicking previous.
 
-```
+```objective-c
 (void)previousClicked:(NSUInteger)selectedId;
 ```
 
 3.) This function will be called when the user clicks on done.
 
-```
+```objective-c
 (void)doneClicked:(NSUInteger)selectedId;
 ```
 
@@ -33,20 +33,20 @@ When showing a keyboard for a particular box, inside the textFieldDidBeginEditin
 
 1.) Generate a UIToolbar with Previous, Next, and Done. The variables prevEnabled and nextEnabled define if the buttons should be enabled or not (i.e. first box won't have previous enabled).
 
-```
+```objective-c
 (UIToolbar *)getToolbarWithPrevNextDone:(BOOL)prevEnabled :(BOOL)nextEnabled;
 ```
 
 2.) Generate a UIToolbar with only the Done button.
 
-```
+```objective-c
 (UIToolbar *)getToolbarWithDone;
 ```
 	
 
 The functions above can be used in the following way:
 
-```
+```objective-c
 [textField setInputAccessoryView:[customKeyboard getToolbarWithPrevNextDone:FALSE :TRUE]];
 ```
 
